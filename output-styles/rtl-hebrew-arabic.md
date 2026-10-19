@@ -16,6 +16,7 @@ When the user writes in Hebrew or Arabic, answer in the same language and format
 6. Do not mix Hebrew and Arabic in the same paragraph.
 7. If a line truly must begin with English or a number, start it with the Right-to-Left Mark character (U+200F).
 8. Never reverse or reorder characters to simulate RTL. Write text in normal logical order.
+9. When answering in Hebrew, write epistemic/status tags in Hebrew at the start of the line (עובדה, נגזר, הנחה, הערכה, סיכון, נדרש מידע, שאלה פתוחה) instead of English tags like [FACT]. When answering in Arabic, use Arabic tags (حقيقة, مشتق, افتراض, تقدير, خطر, يتطلب بيانات, سؤال مفتوح).
 
 When the user writes in English, these rules do not apply.
 

@@ -1,93 +1,111 @@
-# כללי כתיבה מימין לשמאל ל-Claude — עברית וערבית
+# Claude RTL Writing Rules — Hebrew & Arabic
 
-חבילת כללים שגורמת ל-Claude ול-`Claude Code` לכתוב עברית וערבית שמוצגות נכון מימין לשמאל, בלי ערבוב עם אנגלית ובלי משוואות הפוכות.
+A set of rules that makes Claude and `Claude Code` write Hebrew and Arabic that display correctly right-to-left (RTL): no mixing with English, no reversed equations.
 
-**פיתוח והנדסה:** אשרף סעיד | `MIGATRONIX – Automation & Control Solutions`
+**Engineering & Development:** Ashraf Saed | MIGATRONIX – Automation & Control Solutions
 
 ---
 
-## הבעיה
+## The problem
 
-כשכותבים ל-Claude בעברית או בערבית, התשובה לפעמים מוצגת מעורבבת:
+When you write to Claude in Hebrew or Arabic, the answer is sometimes displayed scrambled:
 
-- פסקה שמתחילה במילה באנגלית מוצגת כולה משמאל לימין.
-- משוואה בתוך משפט בעברית מוצגת הפוך. לדוגמה, זה החישוב הנכון:
+- A paragraph that starts with an English word, a number or a tag such as `[FACT]` is displayed entirely left-to-right.
+- An equation inside a Hebrew/Arabic sentence is displayed reversed. The correct calculation:
 
 ```
 3600 / 12 = 300
 ```
 
-ובתוך משפט בעברית הוא מוצג כך:
+is displayed inside a Hebrew sentence as:
 
 ```
 300 = 12 / 3600
 ```
 
-**הסיבה:** כיוון הטקסט נקבע בתצוגה לפי האות הראשונה בכל פסקה. הכללים בחבילה מלמדים את Claude לכתוב בצורה שהתצוגה תסדר נכון.
+**Why:** apps and browsers decide the direction of each paragraph from its first strong character (the Unicode Bidirectional Algorithm). The text Claude writes is correct; only its display is scrambled. These rules teach Claude to write in a way the display will lay out correctly.
 
 ---
 
-## מה יש בחבילה
+## The rules
 
-<div dir="rtl">
+1. Every paragraph, list item, heading and table cell starts with a Hebrew/Arabic word — never with an English word, number, file name, command or symbol.
+2. English terms, file names, commands and code fragments go inside backticks.
+3. Code and multi-line English content go in a separate code block.
+4. Equations and calculations always go on their own line inside a code block.
+5. In tables, the first column holds the Hebrew/Arabic text.
+6. Hebrew and Arabic are not mixed in the same paragraph.
+7. Characters are never reversed to simulate RTL.
+8. Status tags are written in the answer's language:
 
-| קובץ | תפקיד |
+| English | Hebrew | Arabic |
+|---|---|---|
+| `[FACT]` | עובדה | حقيقة |
+| `[DERIVED]` | נגזר | مشتق |
+| `[ASSUMPTION]` | הנחה | افتراض |
+| `[ESTIMATE]` | הערכה | تقدير |
+| `[RISK]` | סיכון | خطر |
+| `[REQUIRES DATA]` | נדרש מידע | يتطلب بيانات |
+| `[OPEN QUESTION]` | שאלה פתוחה | سؤال مفتوح |
+
+---
+
+## What's in the package
+
+| File | Purpose |
 |---|---|
-| הכללים לזיכרון: `memory/rtl-rules.txt` | טקסט להדבקה בשיחה עם Claude, לשמירה בזיכרון |
-| סגנון תשובה: `output-styles/rtl-hebrew-arabic.md` | קובץ Output Style ל-`Claude Code` שמותקן במחשב |
-| שאלת בדיקה: `test/test-prompt.txt` | שאלה לבדיקה שהכללים עובדים |
-| יומן שינויים: `CHANGELOG.md` | רשימת הגרסאות והשינויים |
-| זכויות יוצרים: `LICENSE` | תנאי השימוש |
-
-</div>
+| `memory/rtl-rules.txt` | Text to paste into a Claude chat so the rules are saved to Claude's memory |
+| `output-styles/rtl-hebrew-arabic.md` | Output Style file for `Claude Code` installed on your computer |
+| `test/test-prompt.txt` | A Hebrew test prompt to verify the rules work |
+| `CHANGELOG.md` | Versions and changes |
+| `LICENSE` | Terms of use |
 
 ---
 
-## התקנה — דרך א׳: אפליקציית Claude וסשנים בענן
+## Installation — Option A: Claude app and cloud sessions (recommended)
 
-זו הדרך המומלצת. היא עובדת באפליקציית Claude, באתר `claude.ai` ובסשנים של `Claude Code` בענן.
+Works in the Claude desktop and mobile apps, on `claude.ai`, and in `Claude Code` cloud sessions.
 
-1. פתח שיחה חדשה ב-Claude.
-2. פתח את הקובץ `memory/rtl-rules.txt` והעתק את כל הטקסט שבו.
-3. הדבק אותו בתיבת ההקלדה ולחץ Enter.
-4. חכה ש-Claude יאשר שהכללים נשמרו.
-5. בדוק שהכללים נשמרו: היכנס להגדרות, ב-Settings לחץ על Memory ואחר כך על Preferences, וגלול לסוף הרשימה. הכללים צריכים להופיע שם.
+1. Open a new chat in Claude.
+2. Open `memory/rtl-rules.txt` and copy all of its text.
+3. Paste it into the message box and press Enter.
+4. Wait for Claude to confirm the rules were saved.
+5. Verify: open **Settings → Memory → Preferences** and scroll to the end of the list. The rules should appear there.
 
-**לתשומת לב:** בסשנים בענן של `Claude Code` אין אפשרות להשתמש ב-Output Style, ולכן בענן משתמשים רק בדרך הזאת.
+**Note:** Output Styles are not available in `Claude Code` cloud sessions, so in the cloud use this option only.
 
 ---
 
-## התקנה — דרך ב׳: `Claude Code` שמותקן במחשב
+## Installation — Option B: `Claude Code` installed on your computer
 
-### במחשב Windows
+### Windows
 
-1. פתח `PowerShell`.
-2. הרץ את הפקודה הבאה כדי ליצור את התיקייה:
+1. Open PowerShell.
+2. Create the folder:
 
 ```powershell
 New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\output-styles"
 ```
 
-3. העתק את הקובץ `output-styles/rtl-hebrew-arabic.md` לתיקייה הזאת:
+3. Copy `output-styles/rtl-hebrew-arabic.md` into:
 
 ```
 C:\Users\<USERNAME>\.claude\output-styles\
 ```
 
-### במחשב Mac או Linux
+### macOS / Linux
 
-1. פתח את הטרמינל.
-2. מתוך התיקייה של החבילה, הרץ:
+From the package folder, run:
 
 ```bash
 mkdir -p ~/.claude/output-styles
 cp output-styles/rtl-hebrew-arabic.md ~/.claude/output-styles/
 ```
 
-### הפעלה
+### Activate
 
-1. סגור את `Claude Code` ופתח אותו מחדש.
-2. בתיבת ההקלדה של `Claude Code`, כתוב את הפקודה הבאה ולחץ Enter:
+1. Close and reopen `Claude Code`.
+2. In the `Claude Code` message box, type the following and press Enter:
 
 ```
 /output-style RTL Hebrew Arabic
@@ -95,25 +113,22 @@ cp output-styles/rtl-hebrew-arabic.md ~/.claude/output-styles/
 
 ---
 
-## בדיקה
+## Testing
 
-1. פתח שיחה חדשה.
-2. העתק את התוכן של `test/test-prompt.txt`, הדבק אותו בתיבת ההקלדה ולחץ Enter.
-3. בדוק את התשובה:
+1. Open a new chat.
+2. Copy the content of `test/test-prompt.txt`, paste it into the message box and press Enter.
+3. Check the answer:
 
-<div dir="rtl">
-
-| בדיקה | תקין אם |
+| Check | Correct when |
 |---|---|
-| תחילת שורות | כל שורה, כותרת וסעיף ברשימה מתחילים במילה בעברית |
-| מונחים באנגלית | מונחים כמו `CAPEX` ו-`OPEX` מופיעים בתוך מסגרת אפורה |
-| חישוב | החישוב מופיע בבלוק נפרד ונקרא משמאל לימין |
-| טבלה | העמודה הראשונה מימין כתובה בעברית |
-| ערבית | משפט הסיכום בערבית נמצא בפסקה נפרדת |
+| Line starts | Every line, heading and list item starts with a Hebrew word |
+| English terms | Terms such as `CAPEX` and `OPEX` appear inside a grey code box |
+| Calculation | The calculation is in a separate block and reads left-to-right |
+| Table | The right-most (first) column is in Hebrew |
+| Arabic | The Arabic summary sentence is in its own paragraph |
+| Tags | Tags appear in Hebrew (e.g. הנחה, סיכון), not `[FACT]` |
 
-</div>
-
-כך צריך להיראות החישוב בתשובה:
+The calculation in the answer should look like this:
 
 ```
 Payback = 450,000 / 180,000 = 2.5 years
@@ -121,29 +136,29 @@ Payback = 450,000 / 180,000 = 2.5 years
 
 ---
 
-## עדכון הכללים
+## Updating the rules
 
-כשמגלים בעיית תצוגה חדשה:
+When you find a new display problem:
 
-1. **תיעוד:** צלם את המקום הבעייתי בתשובה.
-2. **ניסוח כלל:** נסח כלל חדש באנגלית, במשפט אחד וברור.
-3. **עדכון הקבצים:** הוסף את הכלל גם ל-`memory/rtl-rules.txt` וגם ל-`output-styles/rtl-hebrew-arabic.md`.
-4. **יומן שינויים:** הוסף שורה ל-`CHANGELOG.md` עם מספר גרסה חדש, תאריך ותיאור השינוי.
-5. **עדכון הזיכרון:** הדבק את הכלל החדש בשיחה עם Claude ובקש לשמור אותו בזיכרון. אחר כך בדוק שהוא מופיע ב-Memory, בדף Preferences.
-6. **עדכון במחשב:** אם אתה משתמש בדרך ב׳, העתק שוב את הקובץ המעודכן לתיקייה `.claude/output-styles`.
-7. **בדיקה חוזרת:** הרץ שוב את שאלת הבדיקה.
-
----
-
-## מגבלות
-
-- **שינוי הכתיבה בלבד:** הכללים משנים את הדרך שבה Claude כותב, לא את הדרך שבה המסך מציג.
-- **טרמינל ללא תמיכה:** בטרמינל שלא תומך בכתיבה מימין לשמאל, כמו `Windows Terminal`, עלול עדיין להופיע ערבוב. במקרה כזה עבוד דרך אפליקציית Claude או דרך חלון הצ'אט של `VS Code`.
+1. **Document** — take a screenshot of the scrambled spot.
+2. **Phrase a rule** — write a new rule in English, one clear sentence.
+3. **Update the files** — add the rule to both `memory/rtl-rules.txt` and `output-styles/rtl-hebrew-arabic.md`.
+4. **Changelog** — add an entry to `CHANGELOG.md` with a new version number, date and description.
+5. **Update memory** — paste the new rule into a Claude chat and ask Claude to save it to memory permanently. Then verify it appears under **Settings → Memory → Preferences**.
+6. **Update your computer** — if you use Option B, copy the updated file again into `.claude/output-styles`.
+7. **Re-test** — run the test prompt again.
 
 ---
 
-## זכויות יוצרים
+## Limitations
 
-© 2026 אשרף סעיד | `MIGATRONIX – Automation & Control Solutions`. כל הזכויות שמורות.
+- **Writing only:** the rules change how Claude writes, not how the screen displays text.
+- **Terminals without bidi support:** terminals that do not implement bidirectional text (for example Windows Terminal or the VS Code integrated terminal) may still show mixed text. Use the Claude app or the VS Code chat panel instead.
 
-פרטים מלאים בקובץ `LICENSE`.
+---
+
+## Copyright
+
+© 2026 Ashraf Saed | MIGATRONIX – Automation & Control Solutions. All rights reserved.
+
+See `LICENSE` for full terms.

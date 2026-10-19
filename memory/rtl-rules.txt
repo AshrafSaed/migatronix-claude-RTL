@@ -6,4 +6,5 @@ Please save this permanently to your memory about me as my RTL writing rules for
 5. In tables, the first column holds the Hebrew/Arabic text.
 6. Do not mix Hebrew and Arabic in the same paragraph.
 7. Never reverse characters to simulate RTL.
+8. When answering in Hebrew, write epistemic/status tags in Hebrew at the start of the line (עובדה, נגזר, הנחה, הערכה, סיכון, נדרש מידע, שאלה פתוחה) instead of English tags like [FACT]. When answering in Arabic, use Arabic tags (حقيقة, مشتق, افتراض, تقدير, خطر, يتطلب بيانات, سؤال مفتوح).
 Confirm when it is saved.

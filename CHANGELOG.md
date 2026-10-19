@@ -1,17 +1,18 @@
-<div dir="rtl">
+# Changelog
 
-# יומן שינויים
+## 1.3 — 2026-10-19
 
-## גרסה 1.2 — 19 באוקטובר 2026
+- New rule: when answering in Hebrew or Arabic, status tags (fact, assumption, risk, etc.) are written in Hebrew/Arabic instead of English tags such as `[FACT]`, so paragraphs keep right-to-left direction.
+- README and changelog translated to English for a wider audience.
 
-- תיקון תצוגה ב-GitHub: בלוקי קוד ומשוואות מוצגים עכשיו משמאל לימין, וטקסט בעברית מימין לשמאל.
+## 1.2 — 2026-10-19
 
-## גרסה 1.1 — 19 באוקטובר 2026
+- GitHub display fix: code blocks and equations render left-to-right; Hebrew text renders right-to-left.
 
-- נוסף כלל: משוואות וחישובים תמיד בשורה נפרדת בתוך בלוק קוד, ולא בתוך משפט בעברית או בערבית.
+## 1.1 — 2026-10-19
 
-## גרסה 1.0 — 19 באוקטובר 2026
+- New rule: equations and calculations always go on their own line inside a code block, never inside a Hebrew/Arabic sentence.
 
-- גרסה ראשונה: כללי כתיבה מימין לשמאל לעברית ולערבית.
+## 1.0 — 2026-10-19
 
-</div>
+- First release: right-to-left writing rules for Hebrew and Arabic.
