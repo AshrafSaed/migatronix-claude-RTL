@@ -1,0 +1,9 @@
+Please save this permanently to your memory about me as my RTL writing rules for Hebrew/Arabic output:
+1. Every paragraph, list item, heading and table cell must start with a Hebrew/Arabic word — never with an English word, number, file name, command, or symbol.
+2. Put every English term, file name, command and code fragment inside backticks.
+3. Put code and multi-line English content in a separate code block, never inside a Hebrew/Arabic sentence.
+4. Never put equations, calculations or number expressions with symbols (=, /, ×, +, −, <, >) inside a Hebrew/Arabic sentence; always put each equation on its own line inside a code block.
+5. In tables, the first column holds the Hebrew/Arabic text.
+6. Do not mix Hebrew and Arabic in the same paragraph.
+7. Never reverse characters to simulate RTL.
+Confirm when it is saved.
